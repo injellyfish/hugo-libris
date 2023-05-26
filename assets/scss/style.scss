@@ -1,0 +1,888 @@
+// 统一
+$font-size: 16px; //文章内容字号大小
+$line-height: 1.75; //文章内容行间距
+$content-width: 600px; //672px; 
+$warn-color: #d7827e;
+$hero-title-size: 2.25em;
+$hero-subtitle-size: 0.9em;
+$sidebar-width: 190px;
+$font-family: "Times New Roman", times, "Heti Song", 'Noto Serif SC', ‘Source Han Serif’, serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+// 亮色主题
+$bg-color: #f5f5f5;
+$font-color: #333;
+
+// 暗色主题
+$d-bg-color: #313131;
+$d-font-color: #ebebeb;
+
+:root {
+  --bg-color: #{$bg-color};
+  --font-color: #{$font-color};
+}
+
+html[data-theme='light'] {
+  --bg-color: #{$bg-color};
+  --font-color: #{$font-color};
+}
+
+html[data-theme='dark'] {
+  --bg-color: #{$d-bg-color};
+  --font-color: #{$d-font-color};
+} 
+
+[data-theme='light'] .theme-toggle-light,
+[data-theme='dark'] .theme-toggle-dark {
+  display: block !important;
+  cursor: pointer;
+}
+
+[data-theme='dark'] .ink figure {
+	filter: brightness(0.9);
+}
+
+.none{display:none!important}
+
+// 字体
+body {
+  font-family: $font-family;
+}
+
+// 布局，来自 https://typo.sofi.sh
+html {
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	text-rendering: optimizeLegibility;
+	-webkit-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--bg-color);
+  background-image: var(--bg-image);
+  color: var(--font-color);
+  margin: 0;
+}
+
+#content {
+  max-width: $content-width;
+  min-height: 30vw;
+  // background: var(--content-bg-color);
+  flex-grow: 1;
+  position: relative;
+  margin: 0 auto;
+  margin-top: 3.25em;
+}
+
+@media screen and (min-width: 1024px) {
+  #content {
+    min-width: $content-width;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #content {
+    padding: 2.25em 1em;
+    min-height: 60vh;
+    margin: 0 auto;
+    margin-top: .75rem;
+  }
+}
+
+.card {
+  padding: .5em;
+}
+
+/*! typo.css | MIT License | github.com/sofish/Typo.css */
+/* 如果你的项目仅支持 IE9+ | Chrome | Firefox 等，推荐在 <html> 中添加 .borderbox 这个 class */
+html.borderbox *, html.borderbox *:before, html.borderbox *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* 内外边距通常让各个浏览器样式的表现位置不同 */
+body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, hr, button, article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+  margin: 0;
+  padding: 0;
+}
+
+/* 重设 HTML5 标签, IE 需要在 js 中 createElement(TAG) */
+article, aside, details, figcaption, figure, footer, header, menu, nav, section {
+  display: block;
+}
+
+/* HTML5 媒体文件跟 img 保持一致 */
+audio, canvas, video {
+  display: inline-block;
+}
+
+/* 去掉各Table cell 的边距并让其边重合 */
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+/* 去除默认边框 */
+fieldset, img {
+  border: 0;
+}
+
+// Hero
+.hero {
+  text-align: left;
+  padding-bottom: 1.75em;
+  line-height: 1.3;
+  overflow: hidden;
+  justify-content: space-between;
+}
+
+.hero-inbox {
+  position: relative;
+  justify-content: space-between;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+}
+
+.hero-info {
+  z-index: 2;
+}
+
+.hero-title {
+  display: flex;
+  position: relative;
+  align-items: center;
+  font-size: $hero-title-size;
+  font-weight: bold;
+  line-height: 1.3;
+  justify-content: space-between;
+}
+
+.hero-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: .25rem;
+  margin-right: .5rem;
+  svg {
+    fill: var(--font-color);
+  }
+}
+
+.hero-card {
+  text-align: left;
+  overflow: hidden;
+  align-items: center;
+  padding: .5em;
+  justify-content: space-between;
+  height: min-content;
+}
+
+.hero-subtitle {
+  font-size: $hero-subtitle-size;
+	padding-top: .5em;
+  line-height: 1.6;
+}
+
+.hero-warn {
+  font-size: $hero-subtitle-size;
+	padding-top: .5em;
+  line-height: 1.6;
+}
+
+@media screen and (max-width: 767px) {
+  .hero-title {
+    display: inline;
+    font-size: 2em;
+    word-wrap: break-word;
+  }
+  .hero-avatar {
+    display: inline;
+    vertical-align: middle;
+  }
+}
+
+// Posts List
+.post-card {
+  line-height: 1.75;
+  align-items: flex-start;
+  display: flex;
+  overflow: hidden;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.post-card:not(:last-child) {
+  margin-bottom: .75em;
+	width: 100%;
+}
+
+.post-inbox {
+  padding: .5em;
+  position: relative;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  align-items: stretch;
+  width: 100%;
+}
+
+.post-title, .post-meta, .post-summary {
+  margin: 5px;
+  overflow: none;
+}
+
+.post-title {
+  font-size: 18px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.post-meta {
+  font-size: 12px;
+  align-items: center;
+  vertical-align: middle;
+  justify-content:center;
+}
+
+.post-summary {
+  font-size: 14px;
+}
+
+.macy-container {
+  display: grid;
+  flex-flow: column wrap;
+  grid-gap: 0 1em;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media screen and (max-width: 767px) {
+  .post-card {
+    display: flex;
+    flex-direction: row;
+  }
+  .post-cover {
+    display: none;
+  }
+  .macy-container {
+    display: block;
+  }
+}
+
+// Tags & Warning
+.tag-count {
+  opacity: 0.5;
+}
+
+.warn {
+  color: $warn-color;
+  font-weight: bold;
+}
+
+.post-meta .warn {
+  margin-right: 0.25rem;
+  display: inline-block;
+}
+
+.tagcard {
+  height: 2em;
+  border-radius: .25em;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  line-height: 1.5;
+  padding-right: .75em;
+  margin-bottom: .75em;
+}
+
+// Icons
+.icon-text {
+  display: inline-flex;
+  align-items: center;
+	flex-wrap: wrap;
+  vertical-align: top;
+}
+
+// Link
+a {
+  color: var(--font-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+// Footer
+footer {
+  text-align: center;
+  font-size: small;
+  padding: 2.25em 0;
+  width: 100%;
+}
+
+.footer-span {
+  padding: .5em;
+  border-radius: .25em;
+  backdrop-filter: blur(10px);
+  width: fit-content;
+  margin: 0 auto;
+}
+
+// Scrollbar
+::-webkit-scrollbar {
+	width: .45rem;
+	height: .45rem;
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: rgb(179, 179, 179);
+	transition: all .2s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgb(139, 139, 139);
+}
+
+// Page
+.page {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  -webkit-box-orient: horizontal;
+  margin-top: 1em;
+}
+
+.page-item {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  transition: all .4s;
+  height: 4rem;
+}
+
+.page-item a {
+  display: inline-flex;
+  align-items: center;
+}
+
+.page-home {
+  justify-content: space-between;
+  align-items: center;
+  @media screen and (max-width: 767px) {
+    height: 4rem;
+  }
+}
+
+.page-none {
+  svg {
+    fill: #9e9e9e !important;
+    vertical-align: middle;
+  }
+  color: #9e9e9e;
+  cursor: not-allowed;
+}
+
+.page-prev {
+  text-align: left;
+  justify-content: flex-start;
+}
+
+.page-next {
+  text-align: right;
+  justify-content: flex-end;
+}
+
+.page-item > .page-tab {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.page-item > .page-text {
+  line-height: 1.3;
+  margin: .25em .25em;
+}
+
+.page-number {
+  text-align: center;
+  margin: .35em;
+}
+
+.page-number.active {
+  font-weight: bold;
+}
+
+// Navbar
+.main {
+  display: flex;
+  width: fit-content;
+  min-width: fit-content;
+  padding: 1em auto;
+  margin: auto;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+nav {
+  position: fixed;
+  top: 5.75rem;
+  display: flex;
+  flex-direction: column;
+  box-orient: vertical;
+}
+
+.nav-item {
+  padding: .35rem .45em;
+  margin-bottom: .75rem;
+  backdrop-filter: none;
+  a {
+    display: inline-flex;
+    align-items: center;
+    margin: 1px;
+    opacity: .5;
+    svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+  a:hover {
+    opacity: 1;
+  }
+}
+
+.nav-title {
+  display: none;
+}
+
+@media screen and(max-width: 768px) {
+  .main {
+    display: block;
+    min-width: 100%;
+    width: 100%;
+  }
+  nav {
+    top:0;
+    flex-direction: row;
+    margin-top: .5rem;
+    margin-right: 1.25rem;
+  }
+  .nav-title {
+    display: block!important;
+  }
+  .nav-item {
+    margin: .25em .25em;
+    border: none;
+    background-color: transparent;
+  }
+  .nav-container {
+    position: sticky;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+}
+
+// SVG
+svg {
+  fill: var(--font-color);
+}
+
+// KBD
+kbd {
+  align-items: center;
+  vertical-align: text-bottom;
+  display: inline;
+  border-radius: .25em;
+  border-style: solid;
+  border-width: 1px 1px 2.25px;
+  font-size: 12px;
+  padding: 0.15rem .25rem;
+}
+
+// Sidebar
+// Chapter list, from https://codepen.io/alxmtr/pen/pyRMQY, license https://codepen.io/alxmtr/pen/pyRMQY/license.txt */
+.chapterlist {
+	position: fixed;
+  top: 20%;
+  bottom: 20%;
+	left: -50px - $sidebar-width;
+	width: $sidebar-width;
+	padding: 2.25rem 1.5rem;
+	z-index: 5;
+	transition: 0.3s;
+	overflow-y: auto;
+  backdrop-filter: blur(30px);
+  border-bottom-right-radius: .25rem;
+  border-top-right-radius: .25rem;
+}
+
+.chapterlist ul {
+  width: fit-content;
+	margin: 2.75rem 0.75rem;
+}
+
+.chapterlist ul.toc-ul {
+  overflow: hidden;
+  margin: 0;
+  margin-left: 10px;
+}
+
+.chapterlist li {
+	font-size: 14px;
+	margin-bottom: 14px;
+	list-style-type: none;
+	line-height: normal;
+}
+
+.chapterlist li a {
+	color: var(--text-color);
+}
+
+.chapterlist li a:hover {
+	color: var(--link-color);
+	transition: all .7s;
+  text-decoration: none;
+}
+
+.atoggle {
+	cursor: pointer;
+}
+
+.atoggle:hover {
+	color: var(--link-color);
+	transition: all .7s;
+}
+
+#navtoggler {
+	display: none;
+}
+
+#navtoggler:checked + .page-wrapper .chapterlist, #navtoggler:checked + .page-wrapper .atoggle {
+	left: 0;
+}
+
+// Comment
+.comment {
+  margin-top: 2rem;
+}
+
+// Mark & Highlight & Summary
+mark {
+  background-color:#f8d86a;
+  color: #333;
+  padding: 4px 2px;
+  border-radius: 5px;
+  b, strong {
+    color: var(--font-color) !important;
+  }
+}
+
+summary {
+  cursor: pointer;
+}
+
+// 内容排版，参考了
+// Heti: https://github.com/sivan/heti（Author: Sivan [sun.sivan@gmail.com]）
+// yue.css：https://github.com/lepture/yue.css
+// typo.css：http://github.com/sofish/typo.css
+
+article {
+	font-size: $font-size;
+	font-weight: normal;
+	-webkit-font-smoothing: subpixel-antialiased;
+	line-height: $line-height;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	hyphens: auto
+}
+
+.ink s, .ink del {
+  opacity: 0.3;
+}
+
+.ink ::-webkit-scrollbar {
+  width: .15rem;
+  height: .15rem;
+  background: transparent;
+}
+
+.ink p {
+	margin-top: 12px;
+	margin-bottom: 24px;
+  text-align: justify;
+}
+
+.ink blockquote {
+  margin: 0 32px 24px;
+  padding: 0 $font-size;
+  font-style: italic;
+  p {
+    margin-top: 4px !important;
+    margin-bottom: 4px !important;
+  }
+  opacity: .8;
+  @media screen and(max-width: 768px) {
+    margin: 0 0 24px;
+  }
+}
+
+.ink figure {
+	display: block;
+	text-align: center;
+}
+
+.ink figure img {
+  max-width: 90%;
+}
+
+@media screen and (max-width: 767px) {
+  .ink figure>img {
+    max-width: 100%;
+  }
+}
+
+.ink figcaption {
+  display: block;
+  opacity: 0.5;
+  text-align: center;
+  font-size: $font-size - 4px;
+}
+
+.ink hr {
+	width: 100%;
+	margin-block-start: 48px;
+	margin-block-end: 46px;
+	border: 0;
+  border-bottom: 1px solid var(--font-color);
+} 
+
+.ink pre {
+	overflow: auto;
+	word-wrap: normal;
+  padding: 1em;
+  text-align: left;
+  border-radius: 4px;
+  border: 1px dashed var(--font-color);
+}
+.ink pre code {
+	padding: 0;
+	border: none;
+}
+.ink code {
+  font-family: "SFMono-Regular",consolas,"Liberation Mono",menlo,courier,monospace,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 0.85em;
+  border: 1px dashed var(--font-color);
+  border-radius: 4px;
+  padding: 2px;
+  word-wrap: break-word;
+}
+
+.ink h1,.ink h2,.ink h3,.ink h4,.ink h5,.ink h6 {
+	position: relative;
+	margin: 0;
+	margin-top: 36px;
+	margin-bottom: 24px;
+	font-weight: bold;
+}
+
+.ink h1 {
+	margin-bottom: 24px;
+	font-size: $font-size + 16px;
+	line-height: $font-size + 32px;
+}
+
+.ink h2 {
+	font-size: $font-size + 8px;
+	line-height: $font-size + 20px;
+  padding-bottom: .5rem;
+}
+
+.ink h3 {
+	font-size: $font-size + 6px;
+	line-height: $font-size + 20px;
+}
+
+.ink h4 {
+	font-size: $font-size + 4px;
+	line-height: $font-size + 8px;
+}
+
+.ink h5 {
+	font-size: $font-size + 2px;
+	line-height: $font-size + 8px;
+}
+
+.ink h6 {
+	font-size: $font-size;
+	line-height: $font-size + 8px;
+}
+
+.ink h1,.ink h2,.ink h3 {
+	letter-spacing: 0.05em
+}
+
+.ink h1+h2,.ink h2+h3,.ink h3+h4,.ink h4+h5,.ink h5+h6 {
+	margin-block-start: 12px
+}
+
+.ink ul,.ink ol,.ink dl {
+	margin-top: 12px;
+	margin-bottom: 24px;
+}
+
+.ink ul,.ink ol {
+	padding-inline-start: $font-size + $font-size;
+}
+
+.ink ul ul,.ink ul ol,.ink ol ul,.ink ol ol {
+	margin-block-start: 0;
+	margin-block-end: 0;
+}
+
+.ink ul {
+	list-style-type: disc;
+}
+
+.ink ol {
+	list-style-type: decimal;
+}
+
+.ink ul ul,.ink ol ul {
+	list-style-type: circle
+}
+
+.ink ul ul ul,.ink ul ol ul,.ink ol ul ul,.ink ol ol ul {
+	list-style-type: square
+}
+
+.ink li {
+	list-style-type: unset
+}
+
+.ink table {
+  border-spacing: 0;
+  border-collapse: collapse;
+	box-sizing: border-box;
+	table-layout: fixed;
+	margin-block-start: 12px;
+	margin-block-end: 24px;
+	margin-inline-start: auto;
+	margin-inline-end: auto;
+	word-break: break-word;
+  width: 100%;
+}
+
+.ink th,.ink td {
+	padding-block-start: 6px;
+	padding-block-end: 6px;
+	padding-inline-start: 8px;
+	padding-inline-end: 8px;
+	border-style: solid;
+  border-width: 1px;
+}
+
+.ink caption {
+	caption-side: bottom;
+	margin-block-start: 2px;
+	margin-block-end: -4px;
+	font-size: 14px;
+	line-height: 24px
+}
+
+.ink a {
+	text-decoration: underline;
+  color: var(--font-color);
+}
+
+.ink a:hover {
+  opacity: .6;
+}
+
+a.footnote-ref::before {
+  content: '[';
+}
+
+a.footnote-ref::after {
+  content: ']';
+}
+
+.ink abbr[title] {
+	padding-block-end: 1px;
+	border-block-end: 1px dotted;
+	text-decoration: none;
+	cursor: help;
+}
+
+.ink b, .ink strong {
+	font-weight: bold;
+}
+
+.ink em, .ink i {
+  font-style: italic;
+}
+
+.ink ins,.ink u {
+	padding-block-end: 1px;
+	border-block-end: 1px solid;
+	text-decoration: none
+}
+
+.ink small {
+	font-size: $font-size - 4px;
+}
+
+.ink sub,.ink sup {
+	position: relative;
+	margin-inline-start: 0.25em;
+	margin-inline-end: 0.25em;
+	font-size: $font-size - 4px;
+	font-style: normal;
+	line-height: 1;
+	vertical-align: baseline;
+}
+
+.ink sub {
+	bottom: -0.25em;
+}
+
+.ink sup {
+	top: -0.5em;
+}
+
+.ink .footnotes {
+  margin-block-start: 49px;
+  font-size: $font-size - 2px;
+  line-height: 24px;
+  hr {
+    margin-bottom: 12px;
+  }
+}
+
+.ink summary:hover {
+  color: var(--link-color);
+}
+
+// Macy.js
+
+#macy-container {
+  margin-top: 16px;
+}
+
+.macy-card {
+  overflow: hidden;
+  position: relative;
+  margin-top: 1em;
+}

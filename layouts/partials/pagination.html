@@ -1,0 +1,89 @@
+{{ $paginator := .Paginator }}
+
+{{ $adjacent_links := 1 }}
+
+{{ $lower_gap := add $adjacent_links 3 }}
+
+{{ $upper_gap := sub $paginator.TotalPages (add $adjacent_links 2) }}
+
+{{ $lower :=  (sub $paginator.PageNumber $adjacent_links) }}
+
+{{ $upper :=  (add $paginator.PageNumber $adjacent_links) }}
+
+{{ $min_links := (add (mul $adjacent_links 2) 3) }}
+
+{{ if gt $paginator.TotalPages 1 }}
+
+<div class="page-home page">
+    {{ if $paginator.HasPrev }}
+    <div class="page-prev page-item ">
+      <a href="{{ $paginator.Prev.URL }}">{{- partial "svg/left.svg" . -}}&nbsp;Prev</a>
+    </div>
+    {{ else }}
+    <div class="page-prev page-none page-item ">{{- partial "svg/left.svg" . -}}&nbsp;Prev</div>
+    {{ end }}
+
+    <div>
+    {{ range $paginator.Pagers }}
+
+      {{ if gt $paginator.TotalPages $min_links }}
+
+        {{ $.Scratch.Set "page_number_flag" false }}
+
+        {{ if eq .PageNumber 1 }}
+          {{ $.Scratch.Set "page_number_flag" true }}
+        {{ end }}
+
+        {{ if eq .PageNumber 2 }}
+          {{ if gt $paginator.PageNumber $lower_gap }}
+            <span>...</span>
+          {{ else if eq $paginator.PageNumber $lower_gap }}
+            {{ $.Scratch.Set "page_number_flag" true }}
+          {{ end }}
+        {{ end }}
+
+        {{ if and (ge .PageNumber $lower) (le .PageNumber $upper) }}
+          {{ $.Scratch.Set "page_number_flag" true }}
+        {{ end }}
+
+        {{ if eq .PageNumber (sub $paginator.TotalPages 1) }}
+          {{ if lt $paginator.PageNumber $upper_gap }}
+            <span>...</span>
+          {{ else if eq $paginator.PageNumber $upper_gap }}
+            {{ $.Scratch.Set "page_number_flag" true }}
+          {{ end }}
+        {{ end }}
+
+        {{ if eq .PageNumber $paginator.TotalPages }}
+          {{ $.Scratch.Set "page_number_flag" true }}
+        {{ end }}
+
+      {{ else }}
+
+        {{ $.Scratch.Set "page_number_flag" true }}
+
+      {{ end }}
+
+      <!-- Output page numbers. -->
+      {{ if eq ($.Scratch.Get "page_number_flag") true }}
+        <span class="page-number{{ if eq . $paginator }} active{{ end }}">
+          {{ if eq . $paginator }}
+          <span>{{ .PageNumber }}</span>
+          {{ else }}
+          <a href="{{ .URL }}">{{ .PageNumber }}</a>
+          {{ end }}
+        </span>
+      {{ end }}
+
+    {{ end }}
+  </div>
+    {{ if $paginator.HasNext }}
+    <div class="page-next page-item ">
+      <a href="{{ $paginator.Next.URL }}">Next&nbsp;{{- partial "svg/right.svg" . -}}</a>
+    </div>
+    {{ else }}
+    <div class="page-none page-next page-item ">Next&nbsp;{{- partial "svg/right.svg" . -}}</div>
+    {{ end }}
+
+</div>
+{{ end }}

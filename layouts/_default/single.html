@@ -1,0 +1,39 @@
+{{ define "main" }}
+
+<div class="card">
+    <article class="ink">
+    {{ .Content }}
+    </article>
+</div>
+
+<div class="page" style="margin-top: 0;">
+    {{ if .Prev }}
+    <div class="page-item page-prev">
+        <div class="page-tab">
+            {{- partial "svg/left.svg" . -}}
+        </div>
+        <div class="page-text">
+            <a href="{{ .Prev.Permalink | relURL }}">{{ .Prev.Title }}</a>   
+        </div>
+    </div>
+    {{ else }}
+    <div class="page-item"></div>
+    {{ end }}
+            
+    {{ if .Next }}
+    <div class="page-item page-next">
+        <div class="page-text">
+            <a href="{{ .Next.Permalink | relURL }}">{{ .Next.Title }}</a>
+        </div>
+        <div class="page-tab">
+            {{- partial "svg/right.svg" . -}}
+        </div>
+    </div>
+    {{ else }}
+    <div class="page-item"></div>
+    {{ end }}
+</div>
+
+<div class="comment">{{- partial "comment.html" . -}}</div>
+
+{{ end }}

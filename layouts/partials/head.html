@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="{{ .Site.Params.icon}}">
+  {{ if eq .RelPermalink "/" }}
+  <title>{{ .Site.Title }}</title>
+  <meta property="og:title" content="{{ .Site.Title }}">
+  <meta property="og:type" content="website">
+  <meta property="description" content="{{ .Site.Params.description }}">
+  <meta property="og:description" content="{{ .Site.Params.description }}">
+  {{ else }}
+  <title>{{ .Title }}{{ with .Params.subtitle }}丨{{ . }} {{ end }}丨{{ .Site.Title }}</title>
+  <meta property="og:title" content="{{ .Title }}丨{{ .Site.Title }}">
+  {{ with .Description }}{{ $.Scratch.Set "summary" (markdownify .) }}
+  {{ else }}{{ $.Scratch.Set "summary" ((delimit (findRE "(<p.*?>(.|\n)*?</p>\\s*)+" .Content) "[&hellip;] ") | plainify | truncate (default 20 .Site.Params.summary) (default " &hellip;" .Site.Params.text.truncated)) }}
+  {{ end }}
+  {{ with ($.Scratch.Get "summary") }}
+  <meta property="description" content="{{ . }}">
+  <meta property="og:description" content="{{ . }}">
+  {{ end }}
+  {{ end }}
+  {{ $styles := resources.Get "scss/style.scss" | toCSS | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $styles.Permalink }}" integrity="{{ $styles.Data.Integrity }}" media="screen">
+  {{- partial "custom/custom_head.html" . -}}
+</head>

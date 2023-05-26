@@ -1,0 +1,10 @@
+{{ define "main" }}
+<div class="card">
+    <article class="ink">
+        {{ .Content }}
+    </article>
+</div>
+
+<div class="comment">{{- partial "comment.html" . -}}</div>
+
+{{ end }}

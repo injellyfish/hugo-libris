@@ -1,0 +1,53 @@
+{{ if .IsHome }}
+<div class="hero hero-card">
+    <div class="hero-title">{{ .Title }}</div>
+    {{ if .Site.Params.Description }}<div class="hero-subtitle">{{ .Site.Params.Description }}</div>{{ end }}
+</div>
+{{ else }}
+<div class="hero-card">
+    <div class="hero-inbox">   
+        {{ if .IsPage }}
+            <div class="hero-info">
+                <div class="hero-title">{{ .Title }}</div>
+                {{ if .Params.warn }}<div class="hero-warn warn">{{ .Params.warn }}</span></div>{{ end }}
+                {{ if .Description }}<div class="hero-subtitle"><i>{{ .Description }}</i></div>{{ end }}
+                <div class="hero-subtitle">
+                    <span class="icon-text">
+                        {{ if .Date }}{{ .Date.Format "2006-01-02" }}{{ end }}
+                        &nbsp;·&nbsp;
+                        {{ .WordCount }}&nbsp;字
+                        &nbsp;·&nbsp;
+                        {{ with .Site.GetPage "section" .Section }}<a href="{{ .Permalink }}">{{ .Title }}</a>{{ end }}
+                    </span>
+                </div>
+                {{ if .Params.tags }}
+                    <div class="hero-subtitle">
+                    {{ range (.GetTerms "tags") }}
+                    <a class="icon-text" href="{{ .Permalink }}">⌗{{ .LinkTitle }}</a>
+                    {{ end }}
+                    </div>
+                    {{ else }}
+                    {{ with .Site.GetPage "section" .Section }}
+                    <div class="hero-subtitle">
+                    {{ range (.GetTerms "tags") }}
+                    <a class="icon-text" href="{{ .Permalink }}">⌗{{ .LinkTitle }}</a>  
+                    {{ end }}
+                    </div>
+                    {{ end }}
+                {{ end }}
+            </div>
+        {{ else }}
+        <div class="hero-title">{{ .Title }}</div>
+        {{ if .Params.warn }}<div class="hero-warn warn">{{ .Params.warn }}</span></div>{{ end }}
+        {{ if .Description }}<div class="hero-subtitle"><i>{{ .Description }}</i></div>{{ end }}
+        <div class="hero-subtitle">
+            {{ if .Params.tags }}
+            {{ range (.GetTerms "tags") }}
+            <a class="icon-text" href="{{ .Permalink }}">⌗{{ .LinkTitle }}</a>
+            {{ end }}
+        {{ end }}
+        </div>
+        {{ end }}
+    </div>  
+</div>
+{{ end }}   

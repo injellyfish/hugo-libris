@@ -1,0 +1,8 @@
+<footer>
+    <div class="footer-span">
+    {{ with .Site.Params.footer }}{{ . | markdownify }}{{ end }}
+    Built with <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/injellyfish/hugo-libris">Libris</a>.
+    </div>
+</footer>
+<script src="{{ "/js/main.js" | relURL }}"></script>
+{{- partial "custom/custom_footer.html" . -}}

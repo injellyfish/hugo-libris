@@ -1,0 +1,52 @@
+<div class="chapter">
+    <input type="checkbox" id="navtoggler"/>
+    <div class="page-wrapper">
+      <div class="chapterlist">
+            {{ $headers := findRE "<h[1-4].*?>(.|\n])+?</h[1-4]>" .Content }}
+            {{ if ge (len $headers) 1 }}
+            {{ $h1_n := len (findRE "(.|\n])+?" .Content) }}
+            {{ $re := (cond (eq $h1_n 0) "<h[2-4]" "<h[1-4]") }}
+            {{ $renum := (cond (eq $h1_n 0) "[2-4]" "[1-4]") }}
+            <div class="toc">
+                <div id="page-scrollspy" class="toc-nav">
+                    {{ range $headers }}
+                    {{ $header := . }}
+                        {{ range first 1 (findRE $re $header 1) }}
+                            {{ range findRE $renum . 1 }}
+                            {{ $next_heading := (cond (eq $h1_n 0) (sub (int .) 1 ) (int . ) ) }}
+                                {{ range seq $next_heading }}
+                                <ul class="toc-ul">
+                                {{end}}
+                                {{ $anchorId := (replaceRE ".* id=\"(.*?)\".*" "$1" $header ) }}
+                                    <li>
+                                        <a class="hidelink text-left" href="#{{ $anchorId }}">
+                                        {{ $header | plainify | htmlUnescape }}
+                                        </a>
+                                    </li>
+                                {{ range seq $next_heading }}
+                                </ul>
+                                {{ end }}
+                            {{ end }}
+                        {{ end }}
+                    {{ end }}
+                </div>
+            </div>
+            {{ end }}
+
+            {{ with .Site.GetPage "section" .Section }}
+            {{ if .Params.book }}
+                <ul>
+                    <li><strong><a href="{{ .Permalink }}">{{ .Title }}</a></strong></li>
+                    {{ range .Pages.ByDate }}
+                    {{ if .Params.hidetoc }}
+                    {{ else }}
+                    <li><a href="{{ .Permalink }}">{{ .Title }}</a></li>
+                    {{ end }}
+                    {{ end }}
+                </ul>
+            {{ end }}
+            {{ end }}
+
+    </div>
+  </div>
+  

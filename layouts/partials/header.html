@@ -1,0 +1,28 @@
+<div class="nav-container">
+  <nav class="autohead">
+    {{ if .IsPage }}
+    <div class="nav-item" aria-label="首页">
+      <a class="hidelink" href="/">{{- partial "svg/home.svg" . -}}</a>
+    </div>
+    <div class="nav-item" aria-label="目录">
+      <label class="atoggle hidelink" for="navtoggler"><a>{{- partial "svg/index.svg" . -}}</a></label>
+    </div>
+    {{ else }}
+      {{ $currentPage := . }}
+      {{ range .Site.Menus.main }}
+      {{ $icons := .Pre }}
+      <div class="nav-item" aria-label="{{ .Name }}">
+        <a class="hidelink{{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} active{{end}}" href="{{ .URL }}">      
+          {{ partial (printf "svg/%s.svg" $icons)}}
+        </a>
+      </div>
+      {{ end }}
+    {{ end }}
+    <div class="nav-item">
+      <a id="theme-toggle">
+        <span class="theme-toggle-light none">{{- partial "svg/moon.svg" . -}}</span>
+        <span class="theme-toggle-dark none">{{- partial "svg/sun.svg" . -}}</span>
+      </a>
+    </div>
+  </nav>
+</div>

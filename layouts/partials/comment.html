@@ -1,0 +1,9 @@
+{{ if not .Site.IsServer }}
+<div id="cusdis_thread"
+  data-host="https://cusdis.com"
+  data-app-id="92cff682-138d-4c04-92e3-11b42cedc603"
+  data-page-id="{{ .File.UniqueID }}"
+  data-page-url="{{ .Permalink }}"
+  data-page-title="{{ .Title }}"
+></div>
+{{ end }}

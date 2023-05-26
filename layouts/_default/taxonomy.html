@@ -1,0 +1,45 @@
+{{ define "main" }}
+<div class="macy-container">
+    {{ range .Pages }}
+    <div class="macy-card">
+        <div class="post-card">
+            <div class="post-inbox" id="post-inbox">
+                <div style="justify-content: flex-start;">
+                    <div class="post-meta">
+                        <span class="icon-text">{{ if .Date }}{{ .Date.Format "2006-01-02" }}{{ end }}&nbsp;·&nbsp;{{ if .IsSection }}{{$scratch := newScratch}}{{ range .Pages }}{{ $scratch.Add "total" .WordCount }}{{ end }}{{ $scratch.Get "total" }}{{ else }}{{ .WordCount }}{{ end }}&nbsp;字</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="post-title">
+                        <a href="{{ .RelPermalink }}"><span>{{ .Title }}</span></a>
+                    </div>
+                    <div class="post-summary">
+                        {{ if .Description }}
+                            {{ .Description }}
+                        {{ else }}
+                            {{ .Summary | truncate .Site.Params.summary }}
+                        {{ end }}
+                    </div>
+                </div>
+                <div style="justify-content: flex-end;">
+                    <div class="post-meta">
+                        {{ if .Params.warn }}<span class="warn">{{ .Params.warn }}</span>{{ end }}
+                        {{ if .Params.tags }}
+                            {{ range (.GetTerms "tags") }}
+                            <a class="icon-text" href="{{ .Permalink }}">⌗{{ .LinkTitle }}</a>  
+                            {{ end }}
+                            {{ else }}
+                            {{ with .Site.GetPage "section" .Section }}
+                            {{ range (.GetTerms "tags") }}
+                            <a class="icon-text" href="{{ .Permalink }}">⌗{{ .LinkTitle }}</a>  
+                            {{ end }}
+                            {{ end }}
+                        {{ end }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ end }}
+</div>
+{{ end }}
